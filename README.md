@@ -1,4 +1,4 @@
-<!-- ESTADO-VERIFICADO-2026-10-31 -->
+<!-- ESTADO-VERIFICADO-2026-11-12 -->
 # Claude for Gamers · Build Day
 
 Dos juegos de navegador y un lobby dual creados en vivo el **26 de octubre de 2026** durante el evento comunitario **Claude for Gamers** (Ciudad de México), organizado por Rich Lira.
@@ -11,9 +11,9 @@ El repositorio contiene el código fuente completo, el lobby dual, las suites de
 
 | Juego | Género | Modos | Escenarios / Contenido |
 |---|---|---|---|
-| **Ángel Survivors** | Supervivencia cenital por oleadas con combate activo y apuntado asistido | Un jugador (cooperativo en línea planificado en protocolo de salas) | 6 skins temáticas (Luchador, Catrina, Ajolote, etc.), 5 superarmas, 2 escenarios (Paseo de la Reforma y Tepito) |
+| **Ángel Survivors** | Supervivencia cenital por oleadas con combate activo y apuntado asistido | Un jugador (botón `En línea` como `Próximamente`; protocolo WebSocket de salas cubierto en servidor) | 6 skins temáticas (Luchador, Catrina, Charro, Calaverita, Chinelo y Mariachi), 5 superarmas, 2 escenarios (Paseo de la Reforma y Tepito) |
 | **El escape de Xochimilco** | Runner de 3 carriles en perspectiva pseud-3D (cambio de carril, buceo y salto) | Un jugador · Leaderboard global con validación anti-trampas | Canales de Xochimilco, trajineras, redes, garzas, lirios, remolinos y meta en 2000 m |
-| **Lobby Dual** | Hub web responsivo | Acceso a ambos juegos y clasificación en vivo | Perfil sincronizado de alias, miniaturas animadas en canvas y widgets reactivos |
+| **Lobby Dual** | Hub web responsivo | Acceso a ambos juegos y clasificación en vivo de Xochimilco | Perfil sincronizado de alias, miniaturas animadas en canvas y widgets reactivos |
 
 ---
 
@@ -62,8 +62,8 @@ El backend implementa un sistema de clasificación diseñado para entornos compe
   - `ws` para el protocolo de salas multijugador y señalización en tiempo real.
   - `@aws-sdk/client-dynamodb` / `@aws-sdk/lib-dynamodb` para persistencia en AWS.
 - **Pruebas Automatizadas:**
-  - 100 pruebas unitarias y de integración que pasan sin fallos (93 en servidor, 7 en generador de patrones de Xochimilco).
-  - Pruebas E2E automatizadas con Playwright Chromium local.
+  - 100 pruebas unitarias y de integración verificadas sin fallos (93 en servidor en `server/test/*.test.mjs`, 7 en generador de patrones de Xochimilco en `games/xochimilco/test/patrones.test.mjs`).
+  - Suite E2E en `tests/e2e/` con `playwright-core` (Chromium local).
 
 ---
 
@@ -75,7 +75,7 @@ El backend implementa un sistema de clasificación diseñado para entornos compe
 
 ### 1. Clonar e Instalar Dependencias
 ```bash
-git clone https://github.com/Kadi-Technology/claude-for-gamers-build-day.git
+git clone https://github.com/EliGadielGonzalez/claude-for-gamers-build-day.git
 cd claude-for-gamers-build-day
 cd server
 npm ci
@@ -108,10 +108,10 @@ node --test ../games/xochimilco/test/patrones.test.mjs
 
 ## ⚠️ Estado del Proyecto y Límites Conocidos
 
-- **Versión del build:** `v1.0.2-buildday` (compromiso `d42a0c2`).
-- **Cooperativo en línea:** El protocolo WebSocket y la gestión de salas de 4 jugadores están implementados y cubiertos por pruebas (`server/src/rooms.js`), pero la sincronización de combate de Ángel Survivors se reservó para un release posterior debido a la restricción de tiempo del evento en vivo.
-- **Infraestructura AWS:** La infraestructura temporal desplegada durante el evento en `us-east-1` (detallada en `infra/04_INFRA_AWS.md`) fue retirada tras la conclusión de la jornada de acuerdo con el protocolo de desmontaje (`infra/TEARDOWN.md`). El juego es 100% funcional localmente.
-- **Ramas en GitHub:** El desarrollo completo del Build Day reside en la rama `feat/cfg-001-build-day` (etiquetado con `v1.0.0-buildday`, `v1.0.1-buildday` y `v1.0.2-buildday`). La rama `main` contiene el plan inicial de pre-evento (`0f2e689`).
+- **Versión del build:** `v1.0.2-buildday` (tag `v1.0.2-buildday` en `d42a0c2`, integrado en `main`).
+- **Cooperativo en línea:** El protocolo WebSocket y la gestión de salas de 4 jugadores están implementados y cubiertos por pruebas (`server/src/rooms.js`), pero el botón **En línea** de Ángel Survivors permanece deshabilitado (`Próximamente`) en el menú porque la sincronización de combate se reservó para un release posterior.
+- **Infraestructura AWS:** La infraestructura temporal desplegada durante el evento en `us-east-1` (detallada en `docs/04_INFRA_AWS.md`) fue retirada tras la conclusión de la jornada de acuerdo con el protocolo de desmontaje (`infra/TEARDOWN.md`). El juego es 100% funcional localmente.
+- **Ramas en GitHub:** El código completo del Build Day (fusionado desde `feat/cfg-001-build-day`) reside directamente en `main`, junto con los tags `v1.0.0-buildday`, `v1.0.1-buildday` y `v1.0.2-buildday`.
 
 ---
 
